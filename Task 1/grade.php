@@ -17,6 +17,7 @@ if($_POST){
         $percentage=$grade*100;
         $message_grade = "<div class='alert alert-danger text-center'>
         <h6>
+            your grade is :$grade / 250 <br>
             your persentage is: $percentage %
         </h6>
         </div>";
@@ -69,7 +70,7 @@ if($_POST){
       <div class="container">
           <div class="row ">
               <div class="col-12 mt-5 text-center text-primary font-weight-bold h3">
-                  Check if the number even or odd!
+                  calculate your grade!
               </div>
               <div class="col-4 offset-4 mt-5">
                     <form action="" method="post">
