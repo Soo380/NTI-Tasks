@@ -16,6 +16,17 @@ if ($_POST) {
     $interest = $loan * $rate * $years;
     $total = $loan + $interest;
     $month = $total / ($years * 12);
+
+    $message = "<div class='alert alert-success' role='alert'>
+            <ul>
+                <li> your name is: $name </li>
+                <li> your loan is:$loan</li>
+                <li> number of years is: $years</li>
+                <li> the interest is: $interest </li>
+                <li> the total money:$total</li>
+                <li> paid per month:$month</li>
+            </ul>
+        </div>";
 }
 
 
@@ -38,7 +49,7 @@ if ($_POST) {
     <div class="container">
         <div class="row ">
             <div class="col-12 mt-5 text-center text-primary font-weight-bold h3">
-                Buy Now !
+                Bank !
             </div>
             <div class="col-4 offset-4 mt-5">
                 <form action="" method="post">
@@ -53,7 +64,12 @@ if ($_POST) {
                     <div class="form-group">
                         <button class="mt-0 btn btn-outline-dark rounded">calculate</button>
                     </div>
-                    <div class="alert alert-success" role="alert">
+                    <?php
+                    if (isset($message)) {
+                        echo $message;
+                    }
+                    ?>
+                    <!-- <div class="alert alert-success" role="alert">
                         <ul>
                             <li> your name is:<?= $name ?> </li>
                             <li> your loan is:<?= $loan ?></li>
@@ -62,7 +78,7 @@ if ($_POST) {
                             <li> the total money:<?= $total ?></li>
                             <li> paid per month:<?= $month ?></li>
                         </ul>
-                    </div>
+                    </div> -->
                 </form>
             </div>
         </div>
