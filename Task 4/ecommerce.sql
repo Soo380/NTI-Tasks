@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2022 at 10:51 PM
+-- Generation Time: Apr 01, 2022 at 02:39 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.15
 
@@ -76,6 +76,16 @@ CREATE TABLE `brands` (
   `image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `brands`
+--
+
+INSERT INTO `brands` (`id`, `name_en`, `name_ar`, `status`, `created_at`, `updated_at`, `image`) VALUES
+(1, 'dell', 'ديل', 1, '2022-03-30 00:18:28', '2022-03-30 00:18:28', NULL),
+(2, 'hp', 'hp', 1, '2022-03-30 00:18:45', '2022-03-30 00:18:45', NULL),
+(3, 'defacto', 'ديفاكتو', 1, '2022-03-30 00:19:07', '2022-03-30 00:19:07', NULL),
+(4, 'max', 'ماكس', 1, '2022-03-30 00:19:23', '2022-03-30 00:19:23', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -103,6 +113,14 @@ CREATE TABLE `categories` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name_en`, `name_ar`, `status`, `image`, `created_at`, `updated_at`) VALUES
+(1, 'cloths', 'ملابس', 0, NULL, '2022-03-30 00:20:05', '2022-03-30 00:20:05'),
+(2, 'machine', 'اجهزه', 0, NULL, '2022-03-30 00:20:42', '2022-03-30 00:20:42');
 
 -- --------------------------------------------------------
 
@@ -203,15 +221,28 @@ CREATE TABLE `products` (
   `name_ar` varchar(255) NOT NULL,
   `quantity` smallint(3) UNSIGNED NOT NULL DEFAULT 1,
   `price` decimal(7,2) UNSIGNED NOT NULL,
-  `desc_en` longtext NOT NULL,
-  `desc_ar` longtext NOT NULL,
+  `details_en` longtext NOT NULL,
+  `details_ar` longtext NOT NULL,
   `code` varchar(25) NOT NULL,
   `image` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1->active(default) 0->not active',
   `subcategory_id` bigint(20) UNSIGNED NOT NULL,
-  `brand_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `brand_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `name_en`, `name_ar`, `quantity`, `price`, `details_en`, `details_ar`, `code`, `image`, `status`, `subcategory_id`, `brand_id`, `created_at`, `updated_at`) VALUES
+(2, 'blouse', 'بلوزه', 4, '300.00', 'hjsd kdAWLHDS UIDL; dw', 'ميصتم تنصيامشع تعيصام', '10000', '', 0, 1, 3, '2022-03-30 00:23:32', '2022-04-01 00:27:38'),
+(4, 'laptop 89', 'لابتوب 8', 2, '8000.00', 'sdgu lds  LWQILT', 'صعه يغ صكغض يغعغ 8كم', '12354', '6243c8d7b7eb8.jpg', 0, 2, 2, '2022-03-30 03:04:55', '2022-04-01 00:27:44'),
+(5, 'laptop 66', 'لابتوب 66', 8, '3002.00', 'wudy e WQLYE  Y', 'لابتوبيا عع عصيمع صضغ م', '62533', '6243ca3c21c4a.jpg', 0, 2, 1, '2022-03-30 03:10:52', '2022-03-30 03:10:52'),
+(6, 'blouse ttt', 'بلوزه تا', 2, '80009.00', 'wdqiu n', 'ثاي  عصي ضغم', '25353', '6243cb518ff2e.jpg', 1, 1, 4, '2022-03-30 03:15:29', '2022-03-30 03:15:29'),
+(7, 'jacket', 'جاكت', 5, '500.00', 'hg jg lu liu', 'كا هاخك هتعه كع ع', '68899', '6244c5e33c766.jpg', 1, 1, 4, '2022-03-30 21:04:35', '2022-03-30 23:51:38'),
+(8, 'hh', 'kkl', 6, '564.00', 'uilgli', 'uhl.', '88666', '6246331ea8922.jpg', 0, 2, 1, '2022-03-30 22:38:31', '2022-03-31 23:02:54');
 
 -- --------------------------------------------------------
 
@@ -305,6 +336,15 @@ CREATE TABLE `subcategories` (
   `image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `subcategories`
+--
+
+INSERT INTO `subcategories` (`id`, `name_en`, `name_ar`, `status`, `category_id`, `created_at`, `updated_at`, `image`) VALUES
+(1, 'winter', 'شتوى', 1, 1, '2022-03-30 00:21:30', '2022-03-30 00:22:18', NULL),
+(2, 'laptop', 'لابتوب', 1, 2, '2022-03-30 02:58:21', '2022-03-30 02:58:21', NULL),
+(3, 'summer', 'صيف', 1, 1, '2022-03-30 21:06:50', '2022-03-30 21:06:50', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -313,19 +353,28 @@ CREATE TABLE `subcategories` (
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `first_name` varchar(15) NOT NULL,
-  `last_name` varchar(15) NOT NULL,
+  `first_name` varchar(32) NOT NULL,
+  `last_name` varchar(32) NOT NULL,
   `phone` varchar(11) NOT NULL,
+  `gender` enum('m','f') NOT NULL,
   `email` varchar(40) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL DEFAULT 'default.png',
-  `verification_code` mediumint(5) DEFAULT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0->blocked\r\n1->active',
+  `image` varchar(100) NOT NULL DEFAULT 'default.png',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1-> active(default) 0->not active\r\n',
+  `remember_token` varchar(255) NOT NULL,
+  `verification_code` int(5) DEFAULT NULL,
   `code_expired_at` timestamp NULL DEFAULT NULL,
   `email_vrified_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `phone`, `gender`, `email`, `password`, `image`, `status`, `remember_token`, `verification_code`, `code_expired_at`, `email_vrified_at`, `created_at`, `updated_at`) VALUES
+(1, 'esraa', 'hamdy', '01032511966', 'm', 'soooh380@gmail.vom', 'Esraa.2020', 'default.png', 1, '', NULL, NULL, NULL, '2022-03-29 22:51:58', '2022-03-29 22:51:58');
 
 --
 -- Indexes for dumped tables
@@ -481,13 +530,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `cities`
@@ -523,7 +572,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `product_offer`
@@ -565,13 +614,13 @@ ALTER TABLE `specs`
 -- AUTO_INCREMENT for table `subcategories`
 --
 ALTER TABLE `subcategories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
